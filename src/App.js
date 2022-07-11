@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route } from "react-router-dom";
+
+import { useDispatch, useSelector } from 'react-redux'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { purple, orange } from '@mui/material/colors';
+
+import "./index.css"
+import { getCoInfo } from './redux/actions';
+
+import Home from './components/home'
+import Company from './components/company';
+
+const outerTheme = createTheme({
+  palette: {
+    primary: {
+      main: purple[500],
+    },
+  },
+});
 
 function App() {
+
+  // const dispatch = useDispatch();
+  // const { getAll } = useSelector(state => state)
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ThemeProvider theme={outerTheme}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dx/:name" element={<Company />} />
+        </Routes>
+      </ThemeProvider>
     </div>
   );
 }
